@@ -1,33 +1,25 @@
 import './App.css'
+import {TodolistItem} from "./TodolistItem.tsx";
+import {TaskType} from "./types.ts";
+
+
+
+
+const tasks: TaskType[] = [
+    {id: crypto.randomUUID(), title: "HTML&CSS", isDone: true},
+    {id: crypto.randomUUID(), title: "JS", isDone: true},
+    {id: crypto.randomUUID(), title: "React", isDone: false}
+]
 
 function App() {
-  return (
-      <div className="app">
-        <div>
-          <h3>What to learn</h3>
-          <div>
-            <input/>
-            <button>+</button>
-          </div>
-          <ul>
-            <li>
-              <input type="checkbox" checked={true}/> <span>HTML&CSS</span>
-            </li>
-            <li>
-              <input type="checkbox" checked={true}/> <span>JS</span>
-            </li>
-            <li>
-              <input type="checkbox" checked={false}/> <span>React</span>
-            </li>
-          </ul>
-          <div>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
-          </div>
+
+    const todolistTitle: string= "What to learn";
+
+    return (
+        <div className="app">
+            <TodolistItem tasks={tasks} todolistTitle={todolistTitle} />
         </div>
-      </div>
-  )
+    )
 }
 
 export default App
