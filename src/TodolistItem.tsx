@@ -1,13 +1,15 @@
 import {Button} from "./Button.tsx";
-import {TaskType} from "./types.ts";
+import {FilterTaskType, TaskType} from "./types.ts";
 
 type TodolistTaskType = {
     tasks: TaskType[]
     todolistTitle: string
+    filterTask : (filter:FilterTaskType)=> void
     deleteTask: (taskId: TaskType["id"]) => void
+
 }
 
-export const TodolistItem = ({tasks, todolistTitle, deleteTask}: TodolistTaskType) => {
+export const TodolistItem = ({tasks, todolistTitle, deleteTask, filterTask}: TodolistTaskType) => {
 
     const tasksList = tasks.length === 0 ? "Your taskslist is empty" :
         <ul>
@@ -35,9 +37,9 @@ export const TodolistItem = ({tasks, todolistTitle, deleteTask}: TodolistTaskTyp
             </div>
             {tasksList}
             <div>
-                <Button title={"All"}/>
-                <Button title={"Active"}/>
-                <Button title={"Completed"}/>
+                <Button title={"All"} onClick={()=>filterTask("all")}/>
+                <Button title={"Active"} onClick={()=>filterTask("active")}/>
+                <Button title={"Completed"} onClick={()=>filterTask("completed")}/>
             </div>
         </div>
     );

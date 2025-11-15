@@ -3,3 +3,5 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
+
+export type FilterTaskType = "all" | "active" | "completed"
