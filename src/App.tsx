@@ -2,6 +2,7 @@ import './App.css'
 import {TodolistItem} from "./TodolistItem.tsx";
 import {FilterTaskType, TaskType} from "./types.ts";
 import {useState} from "react";
+import {v1} from "uuid"
 
 
 function App() {
@@ -9,9 +10,9 @@ function App() {
     const todolistTitle: string = "What to learn";
 
     const [tasks, setTasks] = useState<TaskType[]>([
-        {id: crypto.randomUUID(), title: "HTML&CSS", isDone: true},
-        {id: crypto.randomUUID(), title: "JS", isDone: true},
-        {id: crypto.randomUUID(), title: "TS", isDone: true},
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "TS", isDone: true},
         {id: crypto.randomUUID(), title: "React", isDone: false}
     ])
 
@@ -19,6 +20,16 @@ function App() {
         const newState = tasks.filter((t: TaskType) => t.id !== taskId);
         setTasks(newState);
     }
+
+const createTask = (title:TaskType["title"]  ) => {
+        const newTask: TaskType = {
+            id: v1(),
+            title: title,
+            isDone: false
+        }
+        setTasks([...tasks, newTask]);
+}
+
     //GUI
     const [filter, setFilter] = useState<FilterTaskType>("all");
 
@@ -48,6 +59,7 @@ function App() {
                 todolistTitle={todolistTitle}
                 deleteTask={deleteTask}
                 filterTask={filterTask}
+                createTask={createTask}
             />
 
         </div>
