@@ -1,23 +1,31 @@
 import './App.css'
 import {TodolistItem} from "./TodolistItem.tsx";
 import {TaskType} from "./types.ts";
+import {useState} from "react";
 
 
-
-
-const tasks: TaskType[] = [
-    {id: crypto.randomUUID(), title: "HTML&CSS", isDone: true},
-    {id: crypto.randomUUID(), title: "JS", isDone: true},
-    {id: crypto.randomUUID(), title: "React", isDone: false}
-]
 
 function App() {
+    //BLL
+    const todolistTitle: string = "What to learn";
 
-    const todolistTitle: string= "What to learn";
+    const [tasks, setTasks] = useState<TaskType[]>([
+        {id: crypto.randomUUID(), title: "HTML&CSS", isDone: true},
+        {id: crypto.randomUUID(), title: "JS", isDone: true},
+        {id: crypto.randomUUID(), title: "TS", isDone: true},
+        {id: crypto.randomUUID(), title: "React", isDone: false}
+    ])
+
+const deleteTask = (taskId: TaskType["id"]) => {
+        const newState = tasks.filter((t: TaskType) => t.id !== taskId);
+        setTasks(newState);
+}
+    //GUI
+
 
     return (
         <div className="app">
-            <TodolistItem tasks={tasks} todolistTitle={todolistTitle} />
+            <TodolistItem tasks={tasks} todolistTitle={todolistTitle} deleteTask={deleteTask}/>
         </div>
     )
 }
