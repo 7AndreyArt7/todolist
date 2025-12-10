@@ -21,14 +21,19 @@ function App() {
         setTasks(newState);
     }
 
-const createTask = (title:TaskType["title"]  ) => {
+    const createTask = (title: TaskType["title"]) => {
         const newTask: TaskType = {
             id: v1(),
             title: title,
             isDone: false
         }
         setTasks([...tasks, newTask]);
-}
+    }
+
+    const changeTaskStatus = (taskId: TaskType["id"], newTaskStatus: TaskType["isDone"]) => {
+        const nextState = tasks.map((t: TaskType) => t.id === taskId ? {...t, isDone: newTaskStatus} : t)
+        setTasks(nextState)
+    }
 
     //GUI
     const [filter, setFilter] = useState<FilterTaskType>("all");
@@ -60,6 +65,7 @@ const createTask = (title:TaskType["title"]  ) => {
                 deleteTask={deleteTask}
                 filterTask={filterTask}
                 createTask={createTask}
+                changeTaskStatus={changeTaskStatus}
             />
 
         </div>
