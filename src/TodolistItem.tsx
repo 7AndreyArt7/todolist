@@ -23,6 +23,7 @@ export const TodolistItem = ({
                              }: TodolistTaskType) => {
 
     const [inputValue, setInputValue] = useState("")
+    const [error, setError] = useState(false)
 
     const tasksList = tasks.length === 0 ? "Your taskslist is empty" :
         <ul>
@@ -39,6 +40,7 @@ export const TodolistItem = ({
                             onChange={(e) => {
                                 changeTaskStatus(t.id, e.target.checked)
                             }}
+
                         />
                         <span>{t.title}</span>
                         <Button title={"X"} onClick={deleteTaskHandler}/>
@@ -49,12 +51,20 @@ export const TodolistItem = ({
         </ul>
 
     const buttonOnClickHandler = () => {
-        createTask(inputValue);
+        const trimmedTitle = inputValue.trim()
+        if (trimmedTitle) {
+            createTask(inputValue);
+        } else {
+            setError(true);
+        }
         setInputValue("")
     }
 
     const inputOnChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.currentTarget.value);
+        error && setError(false)
+        if (event.currentTarget.value.length < 10) {
+            setInputValue(event.currentTarget.value);
+        }
     }
 
     return (
@@ -63,6 +73,12 @@ export const TodolistItem = ({
             <div>
                 <input value={inputValue}
                        onChange={inputOnChangeHandler}
+                       onKeyDown={(e) => {
+                           if (e.key === "Enter") {
+                               buttonOnClickHandler()
+                           }
+                       }}
+                       className={error ? "input-error" : ""}
                 />
                 <Button title={"+"}
                         onClick={buttonOnClickHandler}
@@ -72,6 +88,7 @@ export const TodolistItem = ({
                 {inputValue.length > 10 && <div style={{color: "red"}}>Title is too long</div>}
                 {inputValue.length === 0 || inputValue.length <= 10 &&
                     <div>Title length is {inputValue.length} charters</div>}
+                {error && <div style={{color: "red"}}>Enter valid title</div>}
             </div>
             {tasksList}
             <div>
