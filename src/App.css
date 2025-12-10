@@ -6,3 +6,23 @@
 .app > div {
   margin-right: 50px;
 }
+
+
+.task {
+  font-weight: bold;
+  color: darkmagenta;
+}
+
+.task-done {
+  text-decoration: line-through;
+  font-style: italic;
+  opacity: 0.5;
+  color: darkmagenta;
+}
+
+.btn-action {
+  color: greenyellow;
+  background-color:blueviolet;
+  border: 3px solid greenyellow;
+  border-radius:5px;
+}

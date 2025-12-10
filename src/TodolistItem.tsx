@@ -4,6 +4,7 @@ import {ChangeEvent, useState} from "react";
 
 type TodolistTaskType = {
     tasks: TaskType[]
+    filter: string
     todolistTitle: string
     filterTask: (filter: FilterTaskType) => void
     deleteTask: (taskId: TaskType["id"]) => void
@@ -13,6 +14,7 @@ type TodolistTaskType = {
 
 export const TodolistItem = ({
                                  tasks,
+                                 filter,
                                  todolistTitle,
                                  deleteTask,
                                  filterTask,
@@ -30,11 +32,13 @@ export const TodolistItem = ({
                 };
                 return (
 
-                    <li key={t.id}>
+                    <li key={t.id} className={t.isDone ? "task-done" : "task"}>
                         <input
                             type="checkbox"
                             checked={t.isDone}
-                            onChange={(e) => {changeTaskStatus(t.id, e.target.checked)}}
+                            onChange={(e) => {
+                                changeTaskStatus(t.id, e.target.checked)
+                            }}
                         />
                         <span>{t.title}</span>
                         <Button title={"X"} onClick={deleteTaskHandler}/>
@@ -71,9 +75,13 @@ export const TodolistItem = ({
             </div>
             {tasksList}
             <div>
-                <Button title={"All"} onClick={() => filterTask("all")}/>
-                <Button title={"Active"} onClick={() => filterTask("active")}/>
-                <Button title={"Completed"} onClick={() => filterTask("completed")}/>
+                <Button title={"All"} onClick={() => filterTask("all")}
+                        className={filter === "all" ? "btn-action" : ""}/>
+                <Button title={"Active"}
+                        onClick={() => filterTask("active")}
+                        className={filter === "active" ? "btn-action" : ""}/>
+                <Button title={"Completed"} onClick={() => filterTask("completed")}
+                        className={filter === "completed" ? "btn-action" : ""}/>
             </div>
         </div>
     );
