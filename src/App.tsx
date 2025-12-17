@@ -78,7 +78,6 @@ function App() {
     const todolistComponents = todolists.map(tl => {
 
         const getFilterTaskHandler = (tasks: TaskType[], filter: FilterTaskType): TaskType[] => {
-
             switch (filter) {
                 case "all":
                     return tasks;
@@ -105,8 +104,6 @@ function App() {
                 changeTodolistFilter={changeTodolistFilter}
             />)
     })
-
-
 
 
     return (
